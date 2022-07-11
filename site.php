@@ -9,7 +9,7 @@
 
 <body>
 
-    <form action="site.php" method="getformvalues">
+    <form action="site.php" method="get">
         Username : <input type="text" name="username">
         <input type="submit">
     </form>
@@ -24,7 +24,7 @@
     ?>
 
     <h2>Basic Calculator</h2>
-    <form action="site.php" method="getformvalues">
+    <form action="site.php" method="get">
         Argument 1 : <input type="number" name="arg1">
         Argument 2 : <input type="number" name="arg2">
         Operation : <input type="text" name="ops">
@@ -33,8 +33,55 @@
 
     <?php
     $ans = $_GET["arg1"] + $_GET["ops"] + $_GET["arg2"];
-    echo "your answer for " . $_GET["arg1"] . " " . $_GET["ops"] . " " . $_GET["arg2"] . " is " . $ans."<br><hr>";
+    echo "your answer for " . $_GET["arg1"] . " " . $_GET["ops"] . " " . $_GET["arg2"] . " is " . $ans . "<br><hr>";
     ?>
+
+    <form action="site.php" method="post">
+        Username : <input type="text" name="username"><br>
+        Password : <input type="password" name="password">
+        <input type="submit">
+    </form>
+
+    <?php
+    /**
+     * Post is a way to get form values in a form of array but 
+     * difference between POST and GET is that post does it more discretly than GET which 
+     * adds user inputs as URL parameters
+     */
+    echo "Your name is: " . $_POST["username"] . "<br><hr>";
+    echo "Your password is: " . $_POST["password"] . "<br><hr>";
+    ?>
+
+    <?php
+    /**
+     * Arrays : basically defined using array();
+     * so we can jump indexes while assigning and it'll filll rest with blank Strings
+     */
+
+    $superheroes = array("Batman", "Iron Man", "Cap", "Superman", "Thor", "Jason Mamoa");
+    $superheroes[7] = "Wonder Women";
+    echo count($superheroes) . " " . $superheroes[7] . "<br><hr>";
+    ?>
+
+    <form action="site.php" method="post">
+        Favorite Superheros <br>
+        Iron Man : <input type="checkbox" name="sups[]" value="Iron Man"><br>
+        Batman : <input type="checkbox" name="sups[]" value="Batman"><br>
+        Deadpool : <input type="checkbox" name="sups[]" value="Deadpool"><br>
+        Doctor Strange : <input type="checkbox" name="sups[]" value="Doctor Strange"><br>
+        <input type="submit">
+    </form>
+
+    <?php
+    /**
+     * Using checkboxes and arrays to store checked values
+     * Order of selection is irrelevant, it takes value in the order values are placed
+     */
+
+     $sups = $_POST["sups"];
+     echo count($sups)." ".$sups[0]."<br><hr>";
+    ?>
+
 
     <?php
     // hello world
