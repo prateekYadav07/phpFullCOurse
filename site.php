@@ -9,6 +9,68 @@
 
 <body>
 
+    <?php
+
+    /**
+     * since strict_types is not enebled that means we dont have to define the type
+     * of argument of a function
+     */
+
+    function add(int $a, int $b): float
+    {
+        return (float)($a + $b);
+    }
+
+    echo add(5, 5) . "<br><hr>";
+
+
+    /**
+     * Pass by reference is achieved by adding & in passing argument
+     */
+
+    $a = 10;
+    echo $a . "<br><hr>";
+    function incByTen(&$value)
+    {
+        $value += 10;
+    }
+    incByTen($a);
+    echo $a . "<br><hr>";
+
+    ?>
+
+
+    <?php
+    /**
+     * Functions: basically everything you already knoe but still doing it for 
+     * the sake of video
+     */
+
+    function wassupHomie($homie)
+    {
+        echo "wassup $homie, how ya doin' <br>";
+    }
+
+    wassupHomie("CJ");
+    wassupHomie("Big dog");
+    echo "<br><hr>";
+    ?>
+
+    <form action="site.php" method="post">
+        <input type="text" name="student">
+        <button type="submit">Submit</button>
+    </form>
+
+    <?php
+    /**
+     * Associative arrays, basically dictionary or hashmap
+     */
+
+    $grades = array("Sam" => "A+", "Pam" => "B+", "Fam" => "C+");
+    echo $grades[$_POST["student"]];
+    echo "<br><hr>";
+    ?>
+
     <form action="site.php" method="get">
         Username : <input type="text" name="username">
         <input type="submit">
@@ -78,8 +140,8 @@
      * Order of selection is irrelevant, it takes value in the order values are placed
      */
 
-     $sups = $_POST["sups"];
-     echo count($sups)." ".$sups[0]."<br><hr>";
+    $sups = $_POST["sups"];
+    echo count($sups) . " " . $sups[0] . "<br><hr>";
     ?>
 
 
