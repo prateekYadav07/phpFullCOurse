@@ -4,12 +4,116 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Document</title>`
 </head>
 
 <body>
 
     <?php
+
+    trait eatables{
+        function taste($tst){
+            echo "it tastes like {$tst}";
+        }
+    }
+
+    class Fruit
+    {
+        const FRUIT_ = "Fruit is a vegetarian's delight";
+        private $name;
+        private $color;
+        use eatables;
+        private $tasteOfTHeFruit;
+        public static $favFruits = array();
+
+        /**
+         * in php there cant be two constructors
+         */
+
+        function __construct($name, $color)
+        {
+            $this->name = $name;
+            $this->color = $color;
+        }
+
+        function getName()
+        {
+            return $this->name;
+        }
+
+        function setName($name)
+        {
+            $this->name = $name;
+        }
+
+        function getColor()
+        {
+            return $this->color;
+        }
+
+        function setColor($color)
+        {
+            $this->color = $color;
+        }
+
+        function __destruct()
+        {
+            echo $this->name . " is a type of fruit having " . $this->color . " color";
+        }
+
+        function setTaste($taste){
+            $this->tasteOfTHeFruit = $taste;
+        }
+
+        function getTaste(){
+            return $this->taste($this->tasteOfTHeFruit);
+        }
+
+        static function favoriteFruits($fruitObject){
+            self::$favFruits = $fruitObject;
+        }
+
+    }
+
+    $pineapple = new Fruit("Pineapple", "yellow & Green");
+    echo $pineapple::FRUIT_;
+    $pineapple->setTaste("Sweet n Sour");
+    $pineapple->getTaste();
+
+    $mango = new Fruit("Mango", "yellow");
+    $apple = new Fruit("Apple", "Red");
+    $strawberry = new Fruit("Strawberry", "Pink");
+    $banana = new Fruit("Banana", "Yellow");
+    
+    $fruitObj = [$pineapple, $mango, $apple, $banana, $strawberry];
+
+    foreach($fruitObj as $value){
+        Fruit::favoriteFruits($value);
+    }
+
+    /**
+     * static properties and methods are freakin' dangerous
+     */
+
+    newLine();
+    ?>
+
+
+    <?php
+    function newLine()
+    {
+        echo "<br><hr>";
+    }
+
+    // defining constants 
+    define("PI", 3.14);
+    define("NAME", "Hercules", true);
+
+    echo PI;
+    newLine();
+    echo NAME;
+    newLine();
+
 
     /**
      * since strict_types is not enebled that means we dont have to define the type
@@ -53,7 +157,7 @@
 
     wassupHomie("CJ");
     wassupHomie("Big dog");
-    echo "<br><hr>";
+    newLine();
     ?>
 
     <form action="site.php" method="post">
@@ -68,7 +172,7 @@
 
     $grades = array("Sam" => "A+", "Pam" => "B+", "Fam" => "C+");
     echo $grades[$_POST["student"]];
-    echo "<br><hr>";
+    newLine();
     ?>
 
     <form action="site.php" method="get">
@@ -86,16 +190,42 @@
     ?>
 
     <h2>Basic Calculator</h2>
-    <form action="site.php" method="get">
+    <form action="site.php" method="post">
         Argument 1 : <input type="number" name="arg1">
-        Argument 2 : <input type="number" name="arg2">
         Operation : <input type="text" name="ops">
+        Argument 2 : <input type="number" name="arg2">
         <input type="submit">
     </form>
 
     <?php
-    $ans = $_GET["arg1"] + $_GET["ops"] + $_GET["arg2"];
-    echo "your answer for " . $_GET["arg1"] . " " . $_GET["ops"] . " " . $_GET["arg2"] . " is " . $ans . "<br><hr>";
+    $ans = null;
+    $a = $_POST["arg1"];
+    $b = $_POST["arg2"];
+
+    if ($b == 0 && $_POST["ops"] == "/") {
+        $ans = "divide by zero not possible";
+    } else {
+        switch ($_POST["ops"]) {
+            case "+":
+                $ans = $a + $b;
+                break;
+            case "-":
+                $ans = $a - $b;
+                break;
+            case "*":
+                $ans = $a * $b;
+                break;
+            case "/":
+                $ans = $a / $b;
+                break;
+            case "**":
+                $ans = $a ** $b;
+                break;
+        }
+    }
+
+    echo "your answer for " . $_GET["arg1"] . " " . $_GET["ops"] . " " . $_GET["arg2"] . " is " . $ans;
+    newLine();
     ?>
 
     <form action="site.php" method="post">
