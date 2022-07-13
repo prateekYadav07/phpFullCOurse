@@ -4,15 +4,68 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>`
+    <title>Document</title>
 </head>
 
 <body>
+    
+    <?php 
+    /**
+     * include keyword is used to include a file
+     * require keyword is same as include except that if file is 
+     * missing then include would continue the execution after giving a warning
+     * but require will throw a compiler error and would stop the execution
+     * */ 
+    include 'welcome.php'; newLine(); ?>
+       
+    <?php 
+        $myFile = fopen("newFile.docx",'a');
+        fwrite($myFile,"First line \n");
+        fwrite($myFile, "Second line \n");
+        fwrite($myFile, "third line \n");
+        fclose($myFile);
+        newLine();
+        //echo fread(fopen("newFile.docx", "r"), filesize("newFile.docx"));
+        $myFile = fopen("newFile.docx",'r');
+        while(!feof($myFile)){
+            echo fgets($myFile);
+        }
+        
+        fclose($myFile);
+        newLine();
+    ?>
 
     <?php
 
-    trait eatables{
-        function taste($tst){
+    echo "today is " . date("d/m/Y h:i:s a") . "<br>";
+    //custom date
+    $d = mktime(3, 43, null, 4, 6, 2012);
+    echo "custom date : " . date("d/m/Y h:i:s a", $d) . "<br>";
+
+    $d = strtotime("+9 minutes");
+    echo date("d/m/Y h:i:s a", $d) . "<br>";
+
+    $d = strtotime("1");
+    echo date("D", $d) . "<br>";
+
+    $t = date('d-m-Y');
+    echo date("D", strtotime($t)). "<br>";
+
+    $D = date("N",date("d/m/Y"));
+    for($i= $D; $i< $D + 6; $i++){
+        echo date("D", $i);
+    }
+
+    date_default_timezone_set("America/Los_Angeles");
+    echo "USA today is " . date("d/m/Y h:i:s a") . "<br>";
+
+
+    newLine();
+
+    trait eatables
+    {
+        function taste($tst)
+        {
             echo "it tastes like {$tst}";
         }
     }
@@ -61,18 +114,20 @@
             echo $this->name . " is a type of fruit having " . $this->color . " color";
         }
 
-        function setTaste($taste){
+        function setTaste($taste)
+        {
             $this->tasteOfTHeFruit = $taste;
         }
 
-        function getTaste(){
+        function getTaste()
+        {
             return $this->taste($this->tasteOfTHeFruit);
         }
 
-        static function favoriteFruits($fruitObject){
+        static function favoriteFruits($fruitObject)
+        {
             self::$favFruits = $fruitObject;
         }
-
     }
 
     $pineapple = new Fruit("Pineapple", "yellow & Green");
@@ -84,10 +139,10 @@
     $apple = new Fruit("Apple", "Red");
     $strawberry = new Fruit("Strawberry", "Pink");
     $banana = new Fruit("Banana", "Yellow");
-    
+
     $fruitObj = [$pineapple, $mango, $apple, $banana, $strawberry];
 
-    foreach($fruitObj as $value){
+    foreach ($fruitObj as $value) {
         Fruit::favoriteFruits($value);
     }
 
