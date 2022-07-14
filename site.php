@@ -19,6 +19,45 @@
     include 'welcome.php'; newLine(); ?>
        
     <?php 
+
+    function prettyPrintArray($array){
+        echo "<pre>";
+        print_r($array);
+        echo "</pre>";
+        newLine();
+    }
+
+    // anonymous function
+    $sum = function (int ...$numbers) : int {
+        return array_sum($numbers);
+    };
+
+    echo $sum(1,2,4,5,6,7);
+
+    $array2 = array_map(fn($num) => $num **2, array(1,2,3,4,5));
+    prettyPrintArray($array2);
+
+    $array3 = array_map(fn($num) => [
+        $num * 2,
+        $num ** 2,
+        $num ** 3,
+    ], $array2);
+
+    prettyPrintArray($array3);
+
+    $alphas = ['a', 'b', 'c', 'd'];
+    $numbers = [1,2,3,4];
+    prettyPrintArray(array_chunk($array3, 2));
+    prettyPrintArray(array_combine($alphas, $numbers));
+    $numbers2 = [1,2,3,4,5,6,7,8,9,10];
+    $even = array_filter($numbers2, fn($num) => $num % 2 === 0, ARRAY_FILTER_USE_BOTH);
+    prettyPrintArray($even);
+    $even = array_values($even);
+    prettyPrintArray($even);
+    newLine();
+    ?>
+
+    <?php 
         $myFile = fopen("newFile.docx",'a');
         fwrite($myFile,"First line \n");
         fwrite($myFile, "Second line \n");
